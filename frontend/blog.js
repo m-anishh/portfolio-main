@@ -1,6 +1,18 @@
 let allPosts = [];
 let showingAllPosts = false;
 
+async function fetchPosts() {
+  const res = await fetch("/api/posts");
+  if (res.ok) return res.json();
+
+  const seedRes = await fetch("data/blog-posts.json");
+  if (!seedRes.ok) {
+    throw new Error(`Unable to load posts: ${res.status}`);
+  }
+
+  return seedRes.json();
+}
+
 function escapeHtml(str) {
   const div = document.createElement("div");
   div.textContent = str || "";
@@ -87,8 +99,7 @@ function renderList() {
 
 async function loadList() {
   try {
-    const res = await fetch("/api/posts");
-    allPosts = await res.json();
+    allPosts = await fetchPosts();
 
     const withCounts = await Promise.all(
       allPosts.map(async (post) => {
@@ -145,13 +156,19 @@ async function loadSinglePost(slug) {
 
   try {
     const res = await fetch(`/api/posts/${encodeURIComponent(slug)}`);
+    let post;
 
-    if (!res.ok) {
+    if (res.ok) {
+      post = await res.json();
+    } else {
+      const posts = await fetchPosts();
+      post = posts.find((item) => item.slug === slug);
+    }
+
+    if (!post) {
       postView.innerHTML = "<p>Post not found.</p><a href='blog.html' class='btn secondary'>Back to Blog</a>";
       return;
     }
-
-    const post = await res.json();
 
     postView.innerHTML = `
       <a href="blog.html" class="blog-back-link">&larr; Back to all posts</a>
@@ -235,8 +252,7 @@ async function loadRelatedPosts(currentPost) {
   if (!container) return;
 
   try {
-    const res = await fetch("/api/posts");
-    const posts = await res.json();
+    const posts = await fetchPosts();
 
     const others = posts.filter((p) => p.slug !== currentPost.slug);
     const sameCategory = others.filter((p) => p.category === currentPost.category);
