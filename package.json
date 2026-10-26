@@ -1,0 +1,24 @@
+{
+  "name": "protfolio-main",
+  "version": "1.0.0",
+  "description": "",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "hash-password": "node backend/hash-password.js",
+    "test": "node --check backend/server.js && node --check backend/routes/auth.js && node --check backend/routes/posts.js && node --check backend/routes/upload.js && node --check backend/routes/ai.js && node --check database/index.js && node --check frontend/script.js && node --check frontend/blog.js && node --check frontend/admin.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^13.0.3",
+    "dotenv": "^18.0.3",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "multer": "^2.4.0",
+    "sharp": "^0.35.5"
+  }
+}

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog Admin | Manish Bista</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    />
+  </head>
+
+  <body class="admin-page">
+    <div id="loginBox" class="admin-login">
+      <div class="container">
+        <h2 class="section-title">Blog Admin</h2>
+        <form id="loginForm" class="contact-form admin-login-form">
+          <div class="form-group">
+            <input type="password" id="password" placeholder="Admin password" required />
+          </div>
+          <button type="submit" class="btn primary">Log In</button>
+          <p id="loginError" class="admin-error"></p>
+        </form>
+      </div>
+    </div>
+
+    <div id="adminBox" class="admin-dashboard" style="display: none">
+      <header class="admin-header">
+        <div class="admin-brand">Portfolio <span>Admin</span></div>
+        <div class="admin-user">
+          <span>Hi, manish</span>
+          <button id="logoutBtn" class="btn secondary">Log Out</button>
+        </div>
+      </header>
+
+      <aside class="admin-sidebar">
+        <a class="active" href="#posts">Manage Posts</a>
+        <a href="#postForm">Create Post</a>
+        <a href="blog.html" target="_blank" rel="noopener noreferrer">View Blog</a>
+      </aside>
+
+      <main class="admin-main" id="posts">
+        <div class="admin-toolbar">
+          <div>
+            <h1>Manage Posts</h1>
+            <p>View, edit, publish, and manage your blog content.</p>
+          </div>
+          <button id="newPostBtn" class="btn primary">Add Post</button>
+        </div>
+
+        <div id="postFilterTabs" class="admin-filters">
+          <button class="blog-tab active" data-filter="all">All Posts</button>
+          <button class="blog-tab" data-filter="public">Published</button>
+          <button class="blog-tab" data-filter="private">Drafts</button>
+        </div>
+
+        <div id="postList" class="admin-post-list"></div>
+
+        <form id="postForm" class="contact-form admin-editor" style="display: none">
+          <input type="hidden" id="postId" />
+          <h2>Edit Post</h2>
+
+          <div class="form-group">
+            <input type="text" id="title" placeholder="Title" required />
+          </div>
+          <div class="form-group">
+            <input type="text" id="excerpt" placeholder="Short excerpt" />
+          </div>
+          <div class="form-group">
+            <input type="text" id="coverImage" placeholder="Cover image URL (optional)" />
+          </div>
+          <div class="form-group">
+            <input type="file" id="coverImageFile" accept="image/jpeg,image/png,image/gif,image/webp" />
+            <p id="uploadStatus" class="form-status"></p>
+            <img id="coverImagePreview" class="admin-cover-preview" />
+          </div>
+          <div class="form-group">
+            <input type="text" id="category" placeholder="Category (e.g. Networking, Cloud, DevOps)" />
+          </div>
+          <div class="form-group ai-draft-controls">
+            <input type="text" id="aiTopic" placeholder="Topic for Gemini draft (optional if title is entered)" />
+            <button type="button" id="generateDraftBtn" class="btn secondary">Generate with Gemini</button>
+            <p id="aiStatus" class="form-status"></p>
+          </div>
+          <div class="form-group">
+            <textarea id="content" placeholder="Post content (Markdown supported)" required></textarea>
+          </div>
+          <div class="form-group admin-publish">
+            <input type="checkbox" id="published" />
+            <label for="published">Published and visible to everyone</label>
+          </div>
+          <div class="admin-editor-actions">
+            <button type="submit" class="btn primary">Save Post</button>
+            <button type="button" id="cancelBtn" class="btn secondary">Cancel</button>
+          </div>
+        </form>
+      </main>
+    </div>
+
+    <script src="admin.js"></script>
+  </body>
+</html>
