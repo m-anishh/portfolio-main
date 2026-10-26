@@ -6,7 +6,8 @@ node_modules/
 .dev.vars.*
 
 # Databases and local runtime state
-database/
+database/*.db
+database/*.db-*
 *.sqlite
 *.sqlite3
 *.db
